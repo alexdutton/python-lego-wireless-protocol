@@ -24,15 +24,19 @@ class TrainMotor(HubIO):
     io_type = IOType.TrainMotor
 
     def set_speed(self, value):
-        self.train.send_message(struct.pack('BBBBBBBB',
-                                            MessageType.PortOutput,
-                                            self.port,
-                                            0x00,
-                                            0x60,
-                                            0x00,
-                                            value,
-                                            0x00,
-                                            0x00))
+        self.train.send_message(
+            struct.pack(
+                "BBBBBBBB",
+                MessageType.PortOutput,
+                self.port,
+                0x00,
+                0x60,
+                0x00,
+                value,
+                0x00,
+                0x00,
+            )
+        )
 
 
 class Voltage(HubIO):

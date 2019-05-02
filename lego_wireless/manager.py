@@ -14,10 +14,10 @@ class HubManager(gatt.DeviceManager):
         if device.mac_address in self.seen_devices:
             return
         self.seen_devices.add(device.mac_address)
-#        device.connect()
+        #        device.connect()
         print(device)
         print(device.services_resolved())
-        #print(device.services)
+        # print(device.services)
 
     def hub_discovered(self, train):
         self.trains.append(train)

@@ -33,17 +33,29 @@ class Hub(gatt.Device):
 
     def characteristic_enable_notification_succeeded(self, *args, **kwargs):
         super().characteristic_enable_notification_succeeded(*args, **kwargs)
-        logger.info("[%s] Characteristic enable notification_succeeded: %s %s" % (self.mac_address, str(args), str(kwargs)))
+        logger.info(
+            "[%s] Characteristic enable notification_succeeded: %s %s"
+            % (self.mac_address, str(args), str(kwargs))
+        )
 
     def characteristic_value_updated(self, characteristic, value):
         super().characteristic_value_updated(characteristic, value)
         message = self.parse_message(value)
         if isinstance(message, HubAttachedIO):
-            if message.event in (HubAttachedIOEvent.AttachedIO, HubAttachedIOEvent.AttachedVirtualIO):
+            if message.event in (
+                HubAttachedIOEvent.AttachedIO,
+                HubAttachedIOEvent.AttachedVirtualIO,
+            ):
                 if message.io_type in HubIO.registry:
-                    self.ports[message.port] = HubIO.registry[message.io_type](self, message.port)
+                    self.ports[message.port] = HubIO.registry[message.io_type](
+                        self, message.port
+                    )
                 else:
-                    logger.warning("Unimplemented IOType on port %d: %s", message.port, message.io_type)
+                    logger.warning(
+                        "Unimplemented IOType on port %d: %s",
+                        message.port,
+                        message.io_type,
+                    )
             else:
                 self.ports.pop(message.port, None)
 

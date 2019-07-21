@@ -67,14 +67,11 @@ class RGBLight(HubIO):
 
     def set_rgb_color_no(self, color_no):
         self.train.send_message(
-            struct.pack('BBBBBB',
-                        MessageType.PortOutput,
-                        self.port,
-                        0x00,
-                        0x51,
-                        0x00,
-                        color_no)
+            struct.pack(
+                "BBBBBB", MessageType.PortOutput, self.port, 0x00, 0x51, 0x00, color_no
+            )
         )
+
 
 class Current(HubIO):
     io_type = IOType.Current

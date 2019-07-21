@@ -5,7 +5,12 @@ import gatt
 
 from lego_wireless import signals
 from lego_wireless.constants import CHARACTERISTIC_UUID
-from lego_wireless.enums import HubAttachedIOEvent, MessageType, HubProperty, HubPropertyOperation
+from lego_wireless.enums import (
+    HubAttachedIOEvent,
+    MessageType,
+    HubProperty,
+    HubPropertyOperation,
+)
 from lego_wireless.hub_io import TrainMotor, HubIO, LEDLight, RGBLight
 from lego_wireless.messages import HubAttachedIO, HubProperties
 
@@ -86,13 +91,25 @@ class Hub(gatt.Device):
                     )
             else:
                 if message.port in self.ports:
-                    logger.debug("Removed IO on port %d: %s", message.port, self.ports[message.port].io_type)
-                    signals.hub_io_disconnected.send(self, hub_io=self.ports[message.port])
+                    logger.debug(
+                        "Removed IO on port %d: %s",
+                        message.port,
+                        self.ports[message.port].io_type,
+                    )
+                    signals.hub_io_disconnected.send(
+                        self, hub_io=self.ports[message.port]
+                    )
                     self.hub_io_disconnected(self.ports[message.port])
                     del self.ports[message.port]
-        elif isinstance(message, HubProperties) and message.property == HubProperty.BatteryVoltage and message.operation == HubPropertyOperation.Update:
+        elif (
+            isinstance(message, HubProperties)
+            and message.property == HubProperty.BatteryVoltage
+            and message.operation == HubPropertyOperation.Update
+        ):
             self._battery_level = int(message.payload[0])
-            logger.debug("[%s] Hub battery level: %d%%", self.mac_address, self._battery_level)
+            logger.debug(
+                "[%s] Hub battery level: %d%%", self.mac_address, self._battery_level
+            )
             signals.hub_battery_level.send(self, battery_level=self._battery_level)
         else:
             logger.warning("Unexpected message: %s", message)
@@ -133,13 +150,21 @@ class Hub(gatt.Device):
                     self.hub_characteristic = characteristic
                     self.hub_characteristic.enable_notifications()
 
-                    self.send_message(struct.pack('BBB',
-                                                  MessageType.HubProperties,
-                                                  HubProperty.BatteryVoltage,
-                                                  HubPropertyOperation.EnableUpdates))
-                    self.send_message(struct.pack('BBB',
-                                                  MessageType.HubProperties,
-                                                  HubProperty.Button,
-                                                  HubPropertyOperation.EnableUpdates))
+                    self.send_message(
+                        struct.pack(
+                            "BBB",
+                            MessageType.HubProperties,
+                            HubProperty.BatteryVoltage,
+                            HubPropertyOperation.EnableUpdates,
+                        )
+                    )
+                    self.send_message(
+                        struct.pack(
+                            "BBB",
+                            MessageType.HubProperties,
+                            HubProperty.Button,
+                            HubPropertyOperation.EnableUpdates,
+                        )
+                    )
                     return
         logger.debug("Device %s is not a LWP Hub", self.mac_address)

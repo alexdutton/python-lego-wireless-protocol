@@ -8,6 +8,7 @@ from . import signals
 
 hubs_seen = set()
 
+
 def hub_discovered(sender, hub):
     if hub not in hubs_seen:
         hubs_seen.add(hub)
@@ -25,7 +26,7 @@ def hub_io_connected(sender, hub_io):
 
 
 def main():
-    hub_manager = HubManager('hci0')
+    hub_manager = HubManager("hci0")
     atexit.register(hub_manager.stop)
 
     signals.hub_discovered.connect(hub_discovered, sender=hub_manager)
@@ -35,7 +36,6 @@ def main():
     hub_manager.start_discovery()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     main()
-

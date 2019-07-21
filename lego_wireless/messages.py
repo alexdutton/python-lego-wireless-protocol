@@ -22,10 +22,12 @@ class HubAttachedIO(
 
 
 class HubProperties(
-    collections.namedtuple('HubProperties', ('property', 'operation', 'payload'))
+    collections.namedtuple("HubProperties", ("property", "operation", "payload"))
 ):
     @classmethod
     def from_bytes(cls, value):
-        return cls(property=HubProperty(value[0]),
-                   operation=HubPropertyOperation(value[1]),
-                   payload=value[2:])
+        return cls(
+            property=HubProperty(value[0]),
+            operation=HubPropertyOperation(value[1]),
+            payload=value[2:],
+        )

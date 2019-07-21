@@ -55,12 +55,12 @@ class HubProperty(enum.IntEnum):
     BatteryType = 0x07
     ManufacturerName = 0x08
     RadioFirmwareVersion = 0x09
-    WirelessProtocolVersion = 0x0a
-    SystemTypeID = 0x0b
-    HWNetworkID = 0x0c
-    PrimaryMACAddress = 0x0d
-    SecondaryMACAddress = 0x0e
-    HardwareNetworkFamily = 0x0f
+    WirelessProtocolVersion = 0x0A
+    SystemTypeID = 0x0B
+    HWNetworkID = 0x0C
+    PrimaryMACAddress = 0x0D
+    SecondaryMACAddress = 0x0E
+    HardwareNetworkFamily = 0x0F
 
 
 class HubPropertyOperation(enum.IntEnum):

@@ -39,6 +39,25 @@ class TrainMotor(HubIO):
         )
 
 
+class LEDLight(HubIO):
+    io_type = IOType.LEDLight
+
+    def set_brightness(self, value):
+        self.train.send_message(
+            struct.pack(
+                "BBBBBBBB",
+                MessageType.PortOutput,
+                self.port,
+                0x00,
+                0x60,
+                0x00,
+                value,
+                0x00,
+                0x00,
+            )
+        )
+
+
 class Voltage(HubIO):
     io_type = IOType.Voltage
 
@@ -46,6 +65,16 @@ class Voltage(HubIO):
 class RGBLight(HubIO):
     io_type = IOType.RGBLight
 
+    def set_rgb_color_no(self, color_no):
+        self.train.send_message(
+            struct.pack('BBBBBB',
+                        MessageType.PortOutput,
+                        self.port,
+                        0x00,
+                        0x51,
+                        0x00,
+                        color_no)
+        )
 
 class Current(HubIO):
     io_type = IOType.Current

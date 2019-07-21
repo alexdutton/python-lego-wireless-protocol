@@ -29,3 +29,44 @@ class HubAttachedIOEvent(enum.IntEnum):
     DetachedIO = 0x00
     AttachedIO = 0x01
     AttachedVirtualIO = 0x02
+
+
+class ColorNo(enum.IntEnum):
+    Off = 0
+    Magenta = 1
+    Purple = 2
+    Blue = 3
+    Cyan = 4
+    Turquoise = 5
+    Green = 6
+    Yellow = 7
+    Orange = 8
+    Red = 9
+    White = 10
+
+
+class HubProperty(enum.IntEnum):
+    AdvertisingName = 0x01
+    Button = 0x02
+    FWVersion = 0x03
+    HWVersion = 0x04
+    RSSI = 0x05
+    BatteryVoltage = 0x06
+    BatteryType = 0x07
+    ManufacturerName = 0x08
+    RadioFirmwareVersion = 0x09
+    WirelessProtocolVersion = 0x0a
+    SystemTypeID = 0x0b
+    HWNetworkID = 0x0c
+    PrimaryMACAddress = 0x0d
+    SecondaryMACAddress = 0x0e
+    HardwareNetworkFamily = 0x0f
+
+
+class HubPropertyOperation(enum.IntEnum):
+    Set = 0x01
+    EnableUpdates = 0x02
+    DisableUpdates = 0x03
+    Reset = 0x04
+    RequestUpdate = 0x05
+    Update = 0x06

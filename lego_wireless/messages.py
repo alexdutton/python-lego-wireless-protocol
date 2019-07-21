@@ -1,7 +1,7 @@
 import collections
 import struct
 
-from .enums import HubAttachedIOEvent, IOType
+from .enums import HubAttachedIOEvent, IOType, HubProperty, HubPropertyOperation
 
 
 class HubAttachedIO(
@@ -19,3 +19,13 @@ class HubAttachedIO(
         else:
             io_type = None
         return cls(port=port, event=event, io_type=io_type)
+
+
+class HubProperties(
+    collections.namedtuple('HubProperties', ('property', 'operation', 'payload'))
+):
+    @classmethod
+    def from_bytes(cls, value):
+        return cls(property=HubProperty(value[0]),
+                   operation=HubPropertyOperation(value[1]),
+                   payload=value[2:])

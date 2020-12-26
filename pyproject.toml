@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lego-wireless"
-version = "0.2"
+version = "0.2.1"
 description = "Control Lego Powered Up devices over Bluetooth"
 authors = ["Alex Dutton <python-lego-wireless-protocol@alexdutton.co.uk>"]
 license = "MIT"

@@ -11,7 +11,7 @@ from .enums import MessageType
 class HubIOMetaclass(type):
     def __new__(mcs, name, bases, attrs):
         cls = type.__new__(mcs, name, bases, attrs)
-        if cls.io_type:
+        if getattr(cls, "io_type", None):
             cls.registry[cls.io_type] = cls
         return cls
 

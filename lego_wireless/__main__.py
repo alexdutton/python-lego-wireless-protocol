@@ -2,9 +2,10 @@ import atexit
 import logging
 import threading
 
-from lego_wireless.hub_io import TrainMotor, LEDLight
-from .manager import HubManager
 from . import signals
+from .manager import HubManager
+from lego_wireless.hub_io import LEDLight
+from lego_wireless.hub_io import TrainMotor
 
 hubs_seen = set()
 

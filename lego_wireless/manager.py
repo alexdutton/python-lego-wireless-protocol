@@ -1,8 +1,8 @@
 import gatt
 
+from . import signals
 from .constants import SERVICE_UUID
 from .hub import Hub
-from . import signals
 
 
 class HubManager(gatt.DeviceManager):

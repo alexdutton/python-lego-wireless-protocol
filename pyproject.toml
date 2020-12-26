@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "lego-wireless"
+version = "0.2"
+description = "Control Lego Powered Up devices over Bluetooth"
+authors = ["Alex Dutton <python-lego-wireless-protocol@alexdutton.co.uk>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/alexsdutton/python-lego-wireless-protocol"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+gatt = "*"
+blinker = "*"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,6 +1,11 @@
-import struct
+from __future__ import annotations
 
-from .enums import MessageType, IOType
+import struct
+import typing
+
+from .enums import ColorNo
+from .enums import IOType
+from .enums import MessageType
 
 
 class HubIOMetaclass(type):
@@ -12,11 +17,11 @@ class HubIOMetaclass(type):
 
 
 class HubIO(metaclass=HubIOMetaclass):
-    io_type = None
-    registry = {}
+    io_type: IOType
+    registry: typing.Dict[IOType, HubIO] = {}
 
-    def __init__(self, train, port):
-        self.train = train
+    def __init__(self, hub, port):
+        self.hub = hub
         self.port = port
 
 
@@ -24,7 +29,7 @@ class TrainMotor(HubIO):
     io_type = IOType.TrainMotor
 
     def set_speed(self, value):
-        self.train.send_message(
+        self.hub.send_message(
             struct.pack(
                 "BBBBBBBB",
                 MessageType.PortOutput,
@@ -43,7 +48,7 @@ class LEDLight(HubIO):
     io_type = IOType.LEDLight
 
     def set_brightness(self, value):
-        self.train.send_message(
+        self.hub.send_message(
             struct.pack(
                 "BBBBBBBB",
                 MessageType.PortOutput,
@@ -65,10 +70,10 @@ class Voltage(HubIO):
 class RGBLight(HubIO):
     io_type = IOType.RGBLight
 
-    def set_rgb_color_no(self, color_no):
-        self.train.send_message(
+    def set_rgb_color_no(self, color_no: ColorNo):
+        self.hub.send_message(
             struct.pack(
-                "BBBBBB", MessageType.PortOutput, self.port, 0x00, 0x51, 0x00, color_no
+                "BBBBBB", MessageType.PortOutput, self.port, 0x01, 0x51, 0x00, color_no
             )
         )
 

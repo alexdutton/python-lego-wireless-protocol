@@ -1,4 +1,5 @@
 import enum
+from gettext import gettext as _
 
 
 class MessageType(enum.IntEnum):
@@ -45,6 +46,21 @@ class ColorNo(enum.IntEnum):
     White = 10
 
 
+color_names = {
+    ColorNo.Off: _("off"),
+    ColorNo.Magenta: _("magenta"),
+    ColorNo.Purple: _("purple"),
+    ColorNo.Blue: _("blue"),
+    ColorNo.Cyan: _("cyan"),
+    ColorNo.Turquoise: _("turquoise"),
+    ColorNo.Green: _("green"),
+    ColorNo.Yellow: _("yellow"),
+    ColorNo.Orange: _("orange"),
+    ColorNo.Red: _("red"),
+    ColorNo.White: _("white"),
+}
+
+
 class HubProperty(enum.IntEnum):
     AdvertisingName = 0x01
     Button = 0x02
@@ -70,3 +86,29 @@ class HubPropertyOperation(enum.IntEnum):
     Reset = 0x04
     RequestUpdate = 0x05
     Update = 0x06
+
+
+class Startup(enum.IntEnum):
+    BufferIfNecessary = 0b0000
+    ExecuteImmediately = 0b0001
+
+
+class Completion(enum.IntEnum):
+    NoAction = 0b0000
+    CommandFeedback = 0b0001
+
+
+class MotorControl(enum.IntEnum):
+    Float = 0
+    Brake = 127
+
+
+class ErrorCode(enum.IntEnum):
+    ACK = 0x01
+    MACK = 0x02
+    BufferOverflow = 0x03
+    Timeout = 0x04
+    CommandNotRecognized = 0x05
+    InvalidUse = 0x06
+    Overcurrent = 0x07
+    InternalError = 0x08
